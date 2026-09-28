@@ -37,6 +37,11 @@ for (let i = 0; i < 16; i++){
     elementoHorario.textContent = `${horaFormatada}:${minutosFormatados}`;
     listaDeHorarios.appendChild(elementoHorario);
 
+    elementoHorario.addEventListener("click", function() {
+        const horarioSelecionado = `${horaFormatada}:${minutosFormatados}`;
+
+        console.log("Você clicou no horário ", horarioSelecionado);
+    });
    
 };
 
