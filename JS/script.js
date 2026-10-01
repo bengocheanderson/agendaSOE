@@ -16,7 +16,44 @@ const dataDia = document.createElement("p");
 dataDia.textContent = "Data: 27/09/2026";
 cardDia.appendChild(dataDia);
 
-const listaDeHorarios = document.createElement("ul");
+const listaManha = document.createElement("ul");
+const tituloManha = document.createElement("h3");
+tituloManha.textContent = "Manhã";
+
+const listaTarde = document.createElement("ul");
+const tituloTarde = document.createElement("h3");
+tituloTarde.textContent = "Tarde";
+
+const horarioSelecionadoTexto = document.createElement("p");
+horarioSelecionadoTexto.textContent = "Horário selecionado: Nenhum";
+cardDia.appendChild(horarioSelecionadoTexto);
+
+const formularioAgendamento = document.createElement("form");
+formularioAgendamento.classList.add("form-agendamento");
+const tituloFormulario = document.createElement("h3");
+tituloFormulario.textContent = "Agendar Atendimento";
+formularioAgendamento.appendChild(tituloFormulario);
+formularioAgendamento.style.display = "none"; // Inicialmente oculto
+
+const labelAluno = document.createElement("label");
+labelAluno.textContent = "Nome do Aluno:";
+const inputAluno = document.createElement("input");
+inputAluno.type = "text";
+const labelTurma = document.createElement("label");
+labelTurma.textContent = "Turma:";
+const inputTurma = document.createElement("input");
+inputTurma.type = "text";
+const labelMotivo = document.createElement("label");
+labelMotivo.textContent = "Motivo do Atendimento:";
+const textareaMotivo = document.createElement("textarea");
+textareaMotivo.rows = 5;
+
+formularioAgendamento.appendChild(labelAluno);
+formularioAgendamento.appendChild(inputAluno);
+formularioAgendamento.appendChild(labelTurma);
+formularioAgendamento.appendChild(inputTurma);
+formularioAgendamento.appendChild(labelMotivo);
+formularioAgendamento.appendChild(textareaMotivo);
 const horaInicio = 9;
 for (let i = 0; i < 16; i++){
     const totalMinutos = i * 30;
@@ -35,17 +72,32 @@ for (let i = 0; i < 16; i++){
     const elementoHorario = document.createElement("li");
     elementoHorario.classList.add("card-horario");
     elementoHorario.textContent = `${horaFormatada}:${minutosFormatados}`;
-    listaDeHorarios.appendChild(elementoHorario);
+    if (horas < 12) {
+        listaManha.appendChild(elementoHorario);
+    } else {
+        listaTarde.appendChild(elementoHorario);
+    }
 
     elementoHorario.addEventListener("click", function() {
         const horarioSelecionado = `${horaFormatada}:${minutosFormatados}`;
 
         console.log("Você clicou no horário ", horarioSelecionado);
+
+        horarioSelecionadoTexto.textContent = `Horário selecionado: ${horarioSelecionado}`;
+
+        formularioAgendamento.style.display = "block";
     });
    
 };
 
-cardDia.appendChild(listaDeHorarios);
+
+cardDia.appendChild(formularioAgendamento);
+
+cardDia.appendChild(tituloManha);
+cardDia.appendChild(listaManha);
+cardDia.appendChild(tituloTarde);
+cardDia.appendChild(listaTarde);
+
 
 telaProfessor.style.display = "none";
 telaOrientador.style.display = "none";
