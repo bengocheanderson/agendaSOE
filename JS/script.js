@@ -24,11 +24,38 @@ const listaTarde = document.createElement("ul");
 const tituloTarde = document.createElement("h3");
 tituloTarde.textContent = "Tarde";
 
+const agendamento= {
+
+        nomeAluno: nomeAluno,
+        turmaAluno: turmaAluno,
+        motivoAtendimento: motivoAtendimento,
+        horarioSelecionado: horarioSelecionado
+    }
+
 const horarioSelecionadoTexto = document.createElement("p");
 horarioSelecionadoTexto.textContent = "Horário selecionado: Nenhum";
 cardDia.appendChild(horarioSelecionadoTexto);
 
 const formularioAgendamento = document.createElement("form");
+formularioAgendamento.addEventListener("submit", function(event) {
+    event.preventDefault(); // Impede o envio do formulário
+
+    const nomeAluno = inputAluno.value;
+    const turmaAluno = inputTurma.value;
+    const motivoAtendimento = textareaMotivo.value;
+    const horarioSelecionado = horarioSelecionadoTexto.textContent.replace("Horário selecionado: ", "");
+    horarioSelecionadoCard.textContent = `${horarioSelecionado} - ${nomeAluno} - ${turmaAluno} - Agendado ` ;
+
+    
+    console.log(agendamento);
+    console.log("Dados do agendamento:");
+    console.log("Nome do Aluno:", nomeAluno);
+    console.log("Turma:", turmaAluno);
+    console.log("Motivo do Atendimento:", motivoAtendimento);
+    console.log("Horário Selecionado:", horarioSelecionado);
+    
+
+});
 formularioAgendamento.classList.add("form-agendamento");
 const tituloFormulario = document.createElement("h3");
 tituloFormulario.textContent = "Agendar Atendimento";
@@ -47,6 +74,9 @@ const labelMotivo = document.createElement("label");
 labelMotivo.textContent = "Motivo do Atendimento:";
 const textareaMotivo = document.createElement("textarea");
 textareaMotivo.rows = 5;
+const botaoAgendar = document.createElement("button");
+botaoAgendar.type = "submit";
+botaoAgendar.textContent = "Agendar Horário";
 
 formularioAgendamento.appendChild(labelAluno);
 formularioAgendamento.appendChild(inputAluno);
@@ -54,7 +84,9 @@ formularioAgendamento.appendChild(labelTurma);
 formularioAgendamento.appendChild(inputTurma);
 formularioAgendamento.appendChild(labelMotivo);
 formularioAgendamento.appendChild(textareaMotivo);
+formularioAgendamento.appendChild(botaoAgendar);
 const horaInicio = 9;
+let horarioSelecionadoCard = null;
 for (let i = 0; i < 16; i++){
     const totalMinutos = i * 30;
 
@@ -86,13 +118,14 @@ for (let i = 0; i < 16; i++){
         horarioSelecionadoTexto.textContent = `Horário selecionado: ${horarioSelecionado}`;
 
         formularioAgendamento.style.display = "block";
+
+        horarioSelecionadoCard = elementoHorario;
     });
    
 };
 
 
 cardDia.appendChild(formularioAgendamento);
-
 cardDia.appendChild(tituloManha);
 cardDia.appendChild(listaManha);
 cardDia.appendChild(tituloTarde);
